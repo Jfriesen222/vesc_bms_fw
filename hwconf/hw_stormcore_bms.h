@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-    */
+ */
 
 #ifndef HWCONF_HW_STORMCORE_BMS_H_
 #define HWCONF_HW_STORMCORE_BMS_H_
@@ -37,7 +37,7 @@
 #define HW_SHUNT_RES			(0.5e-3)
 #define HW_SHUNT_AMP_GAIN		(-20.0)
 #define V_REG					3.3
-#define R_CHARGE_TOP			(68e3 + 2.5e3 + 100.0)
+#define R_CHARGE_TOP			(68.0e3 + 2.5e3 + 100.0)
 #define R_CHARGE_BOTTOM			(2.2e3)
 
 // LEDs
@@ -48,7 +48,7 @@
 #define LINE_BQ_CHG_EN			PAL_LINE(GPIOB, 15)
 #define LINE_BQ_CP_EN			PAL_LINE(GPIOB, 13)
 #define LINE_BQ_DSG_EN			PAL_LINE(GPIOB, 14)
-#define LINE_BQ_PMON_EN			PAL_LINE(GPIOB, 11)
+#define LINE_BQ_PMON_EN			PAL_LINE(GPIOC, 7)
 #define LINE_BQ_PCHG_EN			PAL_LINE(GPIOB, 12)
 
 // LTC6813
@@ -66,26 +66,29 @@
 
 // HDC1080 (temp/humidity)
 #define HDC1080_SDA_GPIO		GPIOB
-#define HDC1080_SDA_PIN			4
+#define HDC1080_SDA_PIN			11
 #define HDC1080_SCL_GPIO		GPIOB
-#define HDC1080_SCL_PIN			5
+#define HDC1080_SCL_PIN			10
 
 // Analog
 #define LINE_V_CHARGE			PAL_LINE(GPIOC, 2)
 #define LINE_CURRENT			PAL_LINE(GPIOC, 3)
+
+#define HW_ADC_TEMP_SENSORS		5
+
 #define LINE_TEMP_0				PAL_LINE(GPIOC, 1)
 #define LINE_TEMP_1				PAL_LINE(GPIOC, 0)
 #define LINE_TEMP_2				PAL_LINE(GPIOC, 4)
 #define LINE_TEMP_3				PAL_LINE(GPIOC, 5)
 #define LINE_TEMP_4				PAL_LINE(GPIOB, 0)
-#define LINE_TEMP_5				PAL_LINE(GPIOB, 1)
+#define LINE_TEMP_5				PAL_LINE(GPIOA, 1)
 
 #define LINE_TEMP_0_EN			PAL_LINE(GPIOA, 2)
 #define LINE_TEMP_1_EN			PAL_LINE(GPIOC, 8)
 #define LINE_TEMP_2_EN			PAL_LINE(GPIOC, 9)
 #define LINE_TEMP_3_EN			PAL_LINE(GPIOC, 10)
-#define LINE_TEMP_4_EN			PAL_LINE(GPIOC, 11)
-#define LINE_TEMP_5_EN			PAL_LINE(GPIOB, 2)
+#define LINE_TEMP_4_EN			PAL_LINE(GPIOB, 1)
+#define LINE_TEMP_5_EN			PAL_LINE(GPIOC, 11)
 
 #define NTC_RES(adc)			(10000.0 / ((4095.0 / (float)adc) - 1.0))
 #define NTC_TEMP(adc)			(1.0 / ((logf(NTC_RES(adc) / 10000.0) / 3380.0) + (1.0 / 298.15)) - 273.15)
@@ -101,9 +104,20 @@
 #define ADC_CH_TEMP2			ADC_CHANNEL_IN13
 #define ADC_CH_TEMP3			ADC_CHANNEL_IN14
 #define ADC_CH_TEMP4			ADC_CHANNEL_IN15
-#define ADC_CH_TEMP5			ADC_CHANNEL_IN16
+#define ADC_CH_TEMP5			ADC_CHANNEL_IN6
 
 // Other
 #define LINE_CURR_MEASURE_EN	PAL_LINE(GPIOB, 6)
+
+//External 12V buck for Aux power
+#define LINE_BUCK_EN		PAL_LINE(GPIOC, 6)
+#define BUCK_12V_ON()		palSetLine(LINE_BUCK_EN)
+#define BUCK_12V_OFF()		palClearLine(LINE_BUCK_EN)
+
+#define LINE_BRAKE_LIGHT_EN		PAL_LINE(GPIOB, 7)
+#define BRAKE_LIGHT_ON()		palSetLine(LINE_BRAKE_LIGHT_EN)
+#define BRAKE_LIGHT_OFF()		palClearLine(LINE_BRAKE_LIGHT_EN)
+
+#define LINE_ESC_PRESENT	PAL_LINE(GPIOA, 0)
 
 #endif /* HWCONF_HW_STORMCORE_BMS_H_ */
