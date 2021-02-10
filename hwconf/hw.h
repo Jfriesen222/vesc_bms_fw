@@ -70,5 +70,6 @@
 
 // Functions
 uint8_t hw_id_from_uuid(void);
+void hw_init(void);
 
 #endif /* HWCONF_HW_H_ */

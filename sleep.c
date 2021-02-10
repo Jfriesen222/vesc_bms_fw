@@ -57,6 +57,7 @@ static void go_to_sleep(void) {
 	TEMP_MEASURE_OFF();
 	HW_CAN_OFF();
 
+
 	LED_OFF(LINE_LED_RED);
 	LED_OFF(LINE_LED_GREEN);
 

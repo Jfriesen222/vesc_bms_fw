@@ -35,6 +35,9 @@
 #define I_IN_FILTER_CONST			0.006
 #define I_IN_FILTER_CONST_IC		0.006
 #define IC_ISENSE_I_GAIN_CORR		0.997 // This gain correction is a hack and should probably be set in config or in hw config
+#ifndef CHARGE_TRIES
+#define CHARGE_TRIES				100
+#endif
 
 // Private variables
 static volatile float m_i_in_filter = 0.0;
@@ -66,7 +69,7 @@ void bms_if_init(void) {
 
 static bool charge_ok(void) {
 	float max = m_is_charging ? backup.config.vc_charge_end : backup.config.vc_charge_start;
-	return pwr_get_vcharge() > backup.config.v_charge_detect &&
+	return (pwr_get_vcharge()) > backup.config.v_charge_detect &&
 			m_voltage_cell_min > backup.config.vc_charge_min &&
 			m_voltage_cell_max < max &&
 			HW_TEMP_CELLS_MAX() < backup.config.t_charge_max;
@@ -102,7 +105,7 @@ static THD_FUNCTION(charge_thd, p) {
 		if (m_i_in_filter > -0.5 && m_is_charging) {
 			no_charge_cnt++;
 
-			if (no_charge_cnt > 100) {
+			if (no_charge_cnt > CHARGE_TRIES) {
 				no_charge_cnt = 0;
 				m_is_charging = false;
 				CHARGE_DISABLE();

@@ -122,6 +122,7 @@ int main(void) {
 	bms_if_init();
 	comm_can_init();
 	comm_can_set_baud(backup.config.can_baud_rate);
+	hw_init();
 
 #ifdef HDC1080_SDA_GPIO
 	hdc1080_init(HDC1080_SDA_GPIO, HDC1080_SDA_PIN,

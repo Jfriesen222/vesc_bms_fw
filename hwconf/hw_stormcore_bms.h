@@ -26,19 +26,20 @@
 #define HW_INIT_HOOK()			palSetLineMode(LINE_CURR_MEASURE_EN, PAL_MODE_OUTPUT_PUSHPULL)
 
 #define CURR_MEASURE_ON()		palSetLine(LINE_CURR_MEASURE_EN)
-#define CURR_MEASURE_OFF()		palClearLine(LINE_CURR_MEASURE_EN)
+#define CURR_MEASURE_OFF()		palClearLine(LINE_CURR_MEASURE_EN); BUCK_12V_OFF()
 
 // Macros
 #define CHARGE_ENABLE()			BQ_CHG_ON(); BQ_DSG_ON()
 #define CHARGE_DISABLE()		BQ_CHG_OFF(); BQ_DSG_OFF()
+#define CHARGE_TRIES			300
 
 // Settings
 #define HW_CELLS_SERIES			18
 #define HW_SHUNT_RES			(0.5e-3)
 #define HW_SHUNT_AMP_GAIN		(-20.0)
 #define V_REG					3.3
-#define R_CHARGE_TOP			(68.0e3 + 2.5e3 + 100.0)
-#define R_CHARGE_BOTTOM			(2.2e3)
+#define R_CHARGE_TOP			(402.0e3)//(68.0e3 + 2.5e3 + 100.0)
+#define R_CHARGE_BOTTOM			(10.0e3) // (2.2e3)
 
 // LEDs
 #define LINE_LED_RED			PAL_LINE(GPIOA, 9)
@@ -71,7 +72,7 @@
 #define HDC1080_SCL_PIN			10
 
 // Analog
-#define LINE_V_CHARGE			PAL_LINE(GPIOC, 2)
+#define LINE_V_CHARGE			PAL_LINE(GPIOA, 3)
 #define LINE_CURRENT			PAL_LINE(GPIOC, 3)
 
 #define HW_ADC_TEMP_SENSORS		5
@@ -97,7 +98,7 @@
 #define HW_TEMP_CELLS_MAX()		bms_if_get_temp(2)
 
 // ADC Channels
-#define ADC_CH_V_CHARGE			ADC_CHANNEL_IN3
+#define ADC_CH_V_CHARGE			ADC_CHANNEL_IN8
 #define ADC_CH_CURRENT			ADC_CHANNEL_IN4
 #define ADC_CH_TEMP0			ADC_CHANNEL_IN2
 #define ADC_CH_TEMP1			ADC_CHANNEL_IN1
@@ -119,5 +120,7 @@
 #define BRAKE_LIGHT_OFF()		palClearLine(LINE_BRAKE_LIGHT_EN)
 
 #define LINE_ESC_PRESENT	PAL_LINE(GPIOA, 0)
+
+
 
 #endif /* HWCONF_HW_STORMCORE_BMS_H_ */
