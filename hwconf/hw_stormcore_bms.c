@@ -16,7 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     */
-
+#include "comm_can.h"
 static THD_WORKING_AREA(hw_stormcore_thread_wa, 512);
 static THD_FUNCTION(hw_stormcore_thread, arg);
 

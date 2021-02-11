@@ -49,7 +49,7 @@
 #define LINE_BQ_CHG_EN			PAL_LINE(GPIOB, 15)
 #define LINE_BQ_CP_EN			PAL_LINE(GPIOB, 13)
 #define LINE_BQ_DSG_EN			PAL_LINE(GPIOB, 14)
-#define LINE_BQ_PMON_EN			PAL_LINE(GPIOC, 7)
+#define LINE_BQ_PMON_EN			PAL_LINE(GPIOC, 11) //set to NC pin to disable
 #define LINE_BQ_PCHG_EN			PAL_LINE(GPIOB, 12)
 
 // LTC6813
